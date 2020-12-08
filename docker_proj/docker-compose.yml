@@ -2,6 +2,7 @@ version: "3"
 services:
   restapi:
      build: ./app
+     image: sunilpawar09999/app:latest
      volumes:
        - "./app/pythonAPI/RestAPI2/src:/restapi"
      depends_on:
@@ -12,6 +13,7 @@ services:
        - DATABASE_HOST=db
   db:
      build: ./mysql
+     image: sunilpawar09999/db:latest
      expose:
        - "3306"
      ports:
