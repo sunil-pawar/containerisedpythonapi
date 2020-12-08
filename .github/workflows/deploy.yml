@@ -61,7 +61,9 @@ jobs:
       run: |
         oci setup repair-file-permissions --file /home/runner/.oci/config
         oci setup repair-file-permissions --file /home/runner/.oci/key.pem
-        
+    - name: list the oci VCN 
+      run: |
+        oci network vcn list --compartment-id ${{ secrets.OCI_COMPARTMENT_OCID }}        
     - name: 'Download the KUBECONFIG'
       run: |
         mkdir -p ~/.kube
