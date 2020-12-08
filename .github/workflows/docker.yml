@@ -24,6 +24,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       # Runs a single command using the runners shell
-      - name: run the docker compose to build the the application
-        run: docker-compose build
+      #login to docker hub
+      - name:login to dockerhub
+        env:
+                DOCKER_USER: ${{ secrets.DOCKER_USER}}
+                DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD}}
+        run: |
+                docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+                docker-compose build
+                docker-compose push
         working-directory: docker_proj
