@@ -23,6 +23,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        working-directory: docker_proj
 
       # Runs a single command using the runners shell
       - name: run the docker compose to build the the application
