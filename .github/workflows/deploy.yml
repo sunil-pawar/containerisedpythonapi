@@ -47,6 +47,8 @@ jobs:
         echo "tenancy=${{secrets.OCI_TENANCY_OCID}}" >> ~/.oci/config
         echo "key_file=~/.oci/key.pem" >> ~/.oci/config
         echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/key.pem
+        echo "${{secrets.VM_SSH_PUB_KEY}}" >> /home/runner/.oci/id_vm.pub
+        touch /home/runner/cloud-init.sh
         #updated private key
           
     - name: 'Install OCI CLI'
@@ -55,6 +57,7 @@ jobs:
         chmod +x install.sh
         ./install.sh --accept-all-defaults
         echo "/home/runner/bin" >> $GITHUB_PATH
+        echo "$GITHUB_PATH"
         exec -l $SHELL
     
     - name: 'Fix Config File Permissions'
