@@ -6,6 +6,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
+    tags: v*
  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -25,12 +26,12 @@ jobs:
         env:       
                 DOCKER_USER: ${{ secrets.DOCKER_USER}}
                 DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD}}
+                mytag: ${{ github.ref}}
         run: |
                 docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
                 docker-compose build
                 docker-compose push
                 docker-compose up -d
                 # Strip "v" prefix from tag name
-                [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-                echo VERSION=$VERSION
+                echo $mytag
         working-directory: docker_proj
